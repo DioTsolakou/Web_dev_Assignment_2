@@ -1,0 +1,30 @@
+<div id="books_found">
+    {{#if results.length}}
+        <p>A total of {{results.length}} books were found</p>
+    {{/if}}
+
+    {{#each results}}
+        <div id="book_container">
+            <div id="title">
+                <p>Title : {{this.title}}</p>
+            </div>
+            <div id="book_id">
+                <p>Book ID : {{this.bookid}}</p>
+            </div>
+            <div id="author">
+                <p>Written by :
+                    {{#each this.author}}
+                        <br>&emsp;{{this.author}}
+                    {{/each}}
+                </p>
+            </div>
+            <div id="release">
+                <p>Release date : {{this.release}}</p>
+            </div>
+            <div id="fav">{{this.favorite}}</div>
+        </div>
+    {{else}}
+        <p>No books were found for your search "{{query}}"</p>
+
+    {{/each}}
+</div>

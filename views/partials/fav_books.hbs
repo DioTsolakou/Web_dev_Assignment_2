@@ -1,0 +1,30 @@
+<div id="books_faved">
+    {{#if favs.length}}
+        <p>You have {{favs.length}} favorite books</p>
+    {{/if}}
+
+    {{#each results}}
+        <div id="book_container">
+            <div id="title">
+                <p>Title : {{this.title}}</p>
+            </div>
+            <div id="book_id">
+                <p>Book ID : {{this.bookid}}</p>
+            </div>
+            <div id="author">
+                <p>Written by :
+                    {{#each this.author}}
+                        <br>&emsp;{{this.author}}
+                    {{/each}}
+                </p>
+            </div>
+            <div id="release">
+                <p>Release date : {{this.release}}</p>
+            </div>
+            <div id="fav">{{this.favorite}}</div>
+        </div>
+    {{else}}
+        <p>You haven't favorited a book yet</p>
+
+    {{/each}}
+</div>
