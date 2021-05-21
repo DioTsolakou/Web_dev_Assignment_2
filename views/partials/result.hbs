@@ -23,8 +23,10 @@
             </div>
             <div id="fav">{{this.favorite}}</div>
         </div>
-    {{else}}
-        <p>No books were found for your search "{{query}}"</p>
+        {{else}}
+            <div role="alert">
+                <p>No books were found for your search "{{query}}"</p>
+            </div>
 
     {{/each}}
 </div>

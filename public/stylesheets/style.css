@@ -1,8 +1,57 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto ;
+    grid-template-rows: 0.1fr auto auto;
+    grid-gap: 0.5rem;
+    background-size: cover;
+    font-size: 1rem;
+    font-family: customFont, serif;
+    height: 100%;
+    min-height: 100vh;
 }
 
-a {
-  color: #00B7FF;
+nav {
+    display: flex;
+    flex-direction: row;
+    background-color: olivedrab;
+    grid-column: 1;
+    grid-row: 1;
 }
+
+nav a {
+    margin: auto;
+    color: white;
+    font-size: 1.8rem;
+}
+
+form {
+    text-align: center;
+    grid-column: 1;
+    grid-row: 2;
+    margin: auto;
+    font-size: 1.5rem;
+}
+
+label {
+    margin: 0.5rem;
+}
+
+input {
+    border-radius: 0.5rem;
+    margin: 1.5rem;
+    height: 1.2rem;
+}
+
+button {
+    font-size: 1.3rem;
+}
+
+#books_found, #books_faved {
+    text-align: center;
+}
+
+#books_faved p {
+    font-size: 1.25rem;
+}
+
