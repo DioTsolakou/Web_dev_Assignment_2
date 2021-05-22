@@ -51,6 +51,12 @@ button {
     text-align: center;
 }
 
+#books_found {
+    grid-column: 1;
+    grid-row: 3;
+    margin: auto;
+}
+
 #books_faved p {
     font-size: 1.25rem;
 }

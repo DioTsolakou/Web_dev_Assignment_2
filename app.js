@@ -15,21 +15,22 @@ hbs.registerPartials(path.join(__dirname, 'views/partials'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/favicon.ico', express.static('images/favicon.ico'));
 
 app.use('/', indexRouter);
 app.use('/favs', favsRouter);
 app.use('/edit', editRouter);
 
-/*app.get('/', (req, res) => {
-
-  let options = {
-    root: path.join(__dirname, 'views')
-  }
-
-  res.sendFile('index.hbs', options, (err) => {
-    console.log(err)
-  })
-})*/
+async function getResponse(url)
+{
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        })
+    return response.json()
+}
 
 app.listen(port, () => console.log(`Listening`));
 
