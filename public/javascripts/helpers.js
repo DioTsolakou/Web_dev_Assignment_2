@@ -1,4 +1,4 @@
-const url = 'https://reststop.randomhouse.com/resources/works?search=';
+const url = 'https://reststop.randomhouse.com/resources/works';
 
 async function getResults(query)
 {
@@ -10,13 +10,14 @@ async function getResults(query)
 function handleData(res)
 {
     let works = res.data.items;
+    console.log(works);
     if (works)
     {
         return works.map(work => mapWork(work));
     }
 }
 
-function mapWork(work)
+mapWork = (work) =>
 {
     return{
         title : work.titleweb,
@@ -24,7 +25,7 @@ function mapWork(work)
         release: work.onsaledate,
         id: work.workid
     };
-}
+};
 
 function handleError(error)
 {
@@ -44,3 +45,5 @@ function handleError(error)
 
     throw new Error(errorMsg);
 }
+
+module.exports = {getResults};
