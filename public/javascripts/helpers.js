@@ -1,23 +1,28 @@
-const url = 'https://reststop.randomhouse.com/resources/works';
+const url = 'https://reststop.randomhouse.com/resources/works?search=';
 
-async function getResults(query)
+const getResults = async (query) =>
 {
-    await fetch(url + query)
+    await fetch(url + query, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        }
+    })
         .then(handleData)
         .catch(handleError);
-}
+};
 
-function handleData(res)
+const handleData = (res) =>
 {
-    let works = res.data.items;
+    let works = res.json();
     console.log(works);
     if (works)
     {
         return works.map(work => mapWork(work));
     }
-}
+};
 
-mapWork = (work) =>
+const mapWork = (work) =>
 {
     return{
         title : work.titleweb,
@@ -27,7 +32,7 @@ mapWork = (work) =>
     };
 };
 
-function handleError(error)
+const handleError = (error) =>
 {
     let errorMsg;
     if (error.response)
@@ -44,6 +49,6 @@ function handleError(error)
     }
 
     throw new Error(errorMsg);
-}
+};
 
 module.exports = {getResults};
