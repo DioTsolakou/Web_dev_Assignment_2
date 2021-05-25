@@ -3,8 +3,6 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/favs', (req, res, next) => {
-  console.log("reached favorites page");
-  alert("reached favorites page");
   res.render('favs', {title: 'Favorite Books'})
 });
 

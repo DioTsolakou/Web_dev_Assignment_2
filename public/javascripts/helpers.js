@@ -1,12 +1,9 @@
 const url = 'https://reststop.randomhouse.com/resources/works?search=';
 let searchBtn = document.getElementById("searchBtn");
 
-searchBtn.addEventListener("click", getResults);
-
 function getResults()
 {
     let query = document.getElementById("searchBar").value;
-    console.log(query);
     fetch(url + query, {
         method: 'GET',
         headers: {
@@ -14,17 +11,41 @@ function getResults()
         }
     })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            let div_books = document.getElementById("books_found");
+            div_books.style.display = "block";
+            data.forEach(work => {
+                works += `
+                <p>A total of ${data.length} books were found</p>
+                <div id="book_container">
+                    <div id="title">
+                        <p>Title : ${titleweb}</p>
+                    </div>
+                    <div id="book_id">
+                        <p>Book ID : ${workid}</p>
+                    </div>
+                    <div id="author">
+                        <p>Written by : ${authorweb}</p>
+                    </div>
+                    <div id="release">
+                        <p>Release date : ${onsaledate}</p>
+                    </div>
+                </div>`
+            });
+        div_books.innerHTML = works;
+        })
         .catch(handleError);
 }
 
+searchBtn.addEventListener('click', getResults);
+
 const handleData = (res) =>
 {
-    let works = res.json();
     console.log(works);
     if (works)
     {
-        return works.map(work => mapWork(work));
+        let handledWorks =  works.map(work => mapWork(work));
+        return handledWorks;
     }
 };
 
