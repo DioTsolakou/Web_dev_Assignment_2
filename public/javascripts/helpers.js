@@ -1,16 +1,22 @@
 const url = 'https://reststop.randomhouse.com/resources/works?search=';
+let searchBtn = document.getElementById("searchBtn");
 
-const getResults = async (query) =>
+searchBtn.addEventListener("click", getResults);
+
+function getResults()
 {
-    await fetch(url + query, {
+    let query = document.getElementById("searchBar").value;
+    console.log(query);
+    fetch(url + query, {
+        method: 'GET',
         headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Accept': 'application/json'
         }
     })
-        .then(handleData)
+        .then(res => res.json())
+        .then(data => console.log(data))
         .catch(handleError);
-};
+}
 
 const handleData = (res) =>
 {
@@ -50,5 +56,3 @@ const handleError = (error) =>
 
     throw new Error(errorMsg);
 };
-
-module.exports = {getResults};
