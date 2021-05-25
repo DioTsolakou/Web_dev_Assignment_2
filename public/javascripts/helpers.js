@@ -13,28 +13,32 @@ function getResults()
         .then(res => res.json())
         .then(data => {
             let div_books = document.getElementById("books_found");
+            console.log(data);
             div_books.style.display = "block";
-            data.forEach(work => {
+            /* data.forEach(work => {
                 works += `
                 <p>A total of ${data.length} books were found</p>
                 <div id="book_container">
                     <div id="title">
-                        <p>Title : ${titleweb}</p>
+                        <p>Title : ${work.titleweb}</p>
                     </div>
                     <div id="book_id">
-                        <p>Book ID : ${workid}</p>
+                        <p>Book ID : ${work.workid}</p>
                     </div>
                     <div id="author">
-                        <p>Written by : ${authorweb}</p>
+                        <p>Written by : ${work.authorweb}</p>
                     </div>
                     <div id="release">
-                        <p>Release date : ${onsaledate}</p>
+                        <p>Release date : ${work.onsaledate}</p>
                     </div>
-                </div>`
-            });
-        div_books.innerHTML = works;
+                </div>`;
+            }); */
+            let results = {};
+            results.works = Handlebars.compile('{{#each work}}<div id="book_container"><div id="title"><p>Title : {{titleweb}}</p></div><div id="book_id"><p>Book ID : {{workid}}</p></div><div id="author"><p>Written by :{{authorweb}}</p></div><div id="release"><p>Release date : {{onsaledate}}</p></div></div>{{/each}}');
+            let content = results.works(data);
+            div_books.innerHTML = content;
         })
-        .catch(handleError);
+        .catch(error => console.log(error));
 }
 
 searchBtn.addEventListener('click', getResults);
