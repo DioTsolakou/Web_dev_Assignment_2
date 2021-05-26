@@ -1,5 +1,10 @@
 const url = 'https://reststop.randomhouse.com/resources/works?search=';
 let searchBtn = document.getElementById("searchBtn");
+let favIcon = document.getElementById("fav_icon_img");
+
+searchBtn.addEventListener('click', getResults);
+
+let favList = new FavoritesList();
 
 function getResults()
 {
@@ -11,56 +16,48 @@ function getResults()
         }
     })
         .then(res => res.json())
-        .then(data => {
-            let div_books = document.getElementById("books_found");
-            console.log(data);
-            div_books.style.display = "block";
-            /* data.forEach(work => {
-                works += `
-                <p>A total of ${data.length} books were found</p>
-                <div id="book_container">
-                    <div id="title">
-                        <p>Title : ${work.titleweb}</p>
-                    </div>
-                    <div id="book_id">
-                        <p>Book ID : ${work.workid}</p>
-                    </div>
-                    <div id="author">
-                        <p>Written by : ${work.authorweb}</p>
-                    </div>
-                    <div id="release">
-                        <p>Release date : ${work.onsaledate}</p>
-                    </div>
-                </div>`;
-            }); */
-            let results = {};
-            results.works = Handlebars.compile('{{#each work}}<div id="book_container"><div id="title"><p>Title : {{titleweb}}</p></div><div id="book_id"><p>Book ID : {{workid}}</p></div><div id="author"><p>Written by :{{authorweb}}</p></div><div id="release"><p>Release date : {{onsaledate}}</p></div></div>{{/each}}');
-            let content = results.works(data);
-            div_books.innerHTML = content;
-        })
-        .catch(error => console.log(error));
+        .then(handleData)
+        .catch(handleError);
 }
 
-searchBtn.addEventListener('click', getResults);
-
-const handleData = (res) =>
+function addFav(workid)
 {
-    console.log(works);
-    if (works)
-    {
-        let handledWorks =  works.map(work => mapWork(work));
-        return handledWorks;
-    }
-};
+    let bookToadd = new book();
+    if (favList.favoritesList.has())
+    favIcon.src = "images/";
 
-const mapWork = (work) =>
+    // might need fetch to POST
+}
+
+
+const handleData = (data) =>
 {
-    return{
-        title : work.titleweb,
-        author: work.authorweb,
-        release: work.onsaledate,
-        id: work.workid
-    };
+    let div_books = document.getElementById("books_found");
+            console.log(data);
+            div_books.style.display = "block";
+            let results = {};
+            results.works = Handlebars.compile(
+                `{{#each work}}
+                    <div id="book_container">
+                        <div id="title">
+                            <p>Title : {{titleweb}}</p>
+                        </div>
+                        <div id="book_id">
+                            <p>Book ID : {{workid}}</p>
+                        </div>
+                        <div id="author">
+                            <p>Written by :{{authorweb}}</p>
+                        </div>
+                        <div id="release">
+                            <p>Release date : {{onsaledate}}</p>
+                        </div>
+                        <div id="fav_icon_div">
+                            <img id="fav_icon_img" src="/images/empty_star.webp" width="48" height="48" onclick="addFav({{workid}})">
+                        </div>
+                    </div>
+                {{/each}}`);
+            let content = results.works(data);
+            div_books.innerHTML = content;
 };
 
 const handleError = (error) =>

@@ -1,6 +1,9 @@
 class FavoritesList
 {
     favoritesList = new Set();
+
+    constructor(){}
+
     constructor(favoritesList)
     {
         this.favoritesList = favoritesList;
