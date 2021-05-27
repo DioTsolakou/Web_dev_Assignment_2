@@ -44,6 +44,7 @@ input {
 }
 
 button {
+    border-radius: 0.3rem;
     font-size: 1.3rem;
 }
 
@@ -55,10 +56,19 @@ button {
     display: none;
     grid-column: 1;
     grid-row: 3;
-    margin: auto;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto;
+}
+
+#book_container {
+    display: inline-block;
+    padding: 0.5%;
+    margin-top: 2rem;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+    border: 0.1rem black solid;
 }
 
 #books_faved p {
     font-size: 1.25rem;
 }
-

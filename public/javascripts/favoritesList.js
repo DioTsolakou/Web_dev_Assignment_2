@@ -1,27 +1,28 @@
 class FavoritesList
 {
-    favoritesList = new Set();
 
-    constructor(){}
+    constructor(){
+        favoritesSet = new Set();
+    }
 
-    constructor(favoritesList)
+    /* constructor(favoritesList)
     {
         this.favoritesList = favoritesList;
-    }
+    } */
 
     get favoritesList()
     {
-        return this.favoritesList;
+        return this.favoritesSet;
     }
 
-    set favoritesList(value)
+    set favoritesSet(value)
     {
-        this.favoritesList = value;
+        this.favoritesSet = value;
     }
 
     writeToFile()
     {
-        for (let book in this.favoritesList)
+        for (let book in this.favoritesSet)
         {
             book = {
                 "title" : book.title,
