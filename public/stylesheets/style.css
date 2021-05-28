@@ -60,7 +60,7 @@ button {
     grid-template-rows: auto auto;
 }
 
-#book_container {
+.book_container {
     display: inline-block;
     padding: 0.5%;
     margin-top: 2rem;

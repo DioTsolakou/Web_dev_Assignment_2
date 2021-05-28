@@ -2,17 +2,17 @@ class book
 {
     title;
     id;
-    authors = new Set();
+    author;
     releaseDate;
-    isFavorite = true;
+    isFavorite;
 
-    constructor(title, id, authors, releaseDate, isFavorite)
+    constructor(title, id, author, releaseDate)
     {
         this.title = title;
         this.id = id;
-        this.authors = authors;
+        this.author = author;
         this.releaseDate = releaseDate;
-        this.isFavorite = isFavorite;
+        this.isFavorite = true;
     }
 
     get title()

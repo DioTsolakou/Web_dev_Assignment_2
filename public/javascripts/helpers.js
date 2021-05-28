@@ -1,6 +1,5 @@
 const url = 'https://reststop.randomhouse.com/resources/works?max=14&search=';
 let searchBtn = document.getElementById("searchBtn");
-let favIcon = document.getElementById("fav_icon_img");
 
 searchBtn.addEventListener('click', getResults);
 
@@ -13,19 +12,49 @@ function getResults()
             'Accept': 'application/json'
         }
     })
-        .then(res => res.json())
-        .then(handleData)
-        .catch(handleError);
+    .then((res) => res.json())
+    .then(handleData)
+    .catch(handleError);
 }
 
-/* function addFav(workid)
+function editFav(workid)
 {
-    let bookToAdd = new book();
-    if (favList.favoritesList.has())
-    favIcon.src = "images/";
+    // check with fetch if it already exists and call the appropriate function
 
-    // might need fetch to POST
+
+}
+
+/* function changeFavIcon(workid)
+{
+    // update favorite icon on load according to the database
+    let book_container_id = "book_container_" + workid;
+    let favIcon = document.getElementById(book_container_id).querySelector("#fav_icon_img");
+
+    fetch
 } */
+
+function addFav(workid)
+{
+    let book_container_id = "book_container_" + workid;
+    let favIcon = document.getElementById(book_container_id).querySelector("#fav_icon_img");
+    favIcon.src = "images/full_star.png";
+
+    // needs post to routes/data
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({action: 'add', id: workid})
+    })
+    .then((res) => res.json)
+    .then(data => {
+        if (data == -1)
+        {
+            window.alert("You have already added this book to your favorites.");
+        }
+    });
+}
 
 
 const handleData = (data) =>
@@ -36,11 +65,10 @@ const handleData = (data) =>
     let results = {};
     results.works = Handlebars.compile(
         `{{#each work}}
-            <span id="book_container">
+            <span class="book_container" id="book_container_{{workid}}">
                 <span id="title">
                     <p>Title :<br>{{titleweb}}</p>
                 </span>
-                
                 <span id="book_id">
                     <p>Book ID :<br>{{workid}}</p>
                 </span>
@@ -50,7 +78,7 @@ const handleData = (data) =>
                 <span id="release">
                     <p>Release date :<br>{{onsaledate}}</p>
                 </span>
-                <img id="fav_icon_img" src="/images/empty_star.webp" width="48" height="48" onclick="addFav({{workid}})">
+                <img id="fav_icon_img" src="/images/empty_star.webp" width="48" height="48" onclick="addFav('{{workid}}')">
             </span>
         {{/each}}`);
     let content = results.works(data);
@@ -75,3 +103,12 @@ const handleError = (error) =>
 
     throw new Error(errorMsg);
 };
+
+function checkExists(workid)
+{
+    for (let i in favList.favoritesSet)
+    {
+        if (favList.favoritesSet[i].has == workid) return true;
+    }
+    return false;
+}
