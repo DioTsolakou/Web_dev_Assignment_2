@@ -1,4 +1,52 @@
-class book
+const mysql = require('mysql');
+
+let con = mysql.createConnection({
+  host: "localhost",
+  user: "dio",
+  password: "web_dev_2021"
+});
+
+con.connect((err) => {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+let createTable = "CREATE TABLE books (title VARCHAR(255), id INT PRIMARY KEY, author VARCHAR(255), releaseDate VARCHAR(255))";
+con.query(createTable, (err, result) => {
+    if (err) throw err;
+    console.log("Table books was created");
+});
+
+insertBook = (title, id, author, releaseDate) =>
+{
+    let insert = `INSERT INTO books (title, id, author, releaseDate) VALUES (${title}, ${id}, ${author}, ${releaseDate})`;
+    con.query(insert, (err, result) => {
+        if (err) throw err;
+        console.log("1 record inserted");
+    });
+}
+
+removeBook = (id) =>
+{
+    
+}
+
+module.exports = {};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* class book
 {
     title;
     id;
@@ -58,4 +106,4 @@ class book
     set isFavorite(value) {
         this.isFavorite = value;
     }
-}
+} */

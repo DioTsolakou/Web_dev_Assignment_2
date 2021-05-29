@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bookDAO = require('./data/bookDAO');
 
 /* GET users listing. */
 router.get('/favs', (req, res, next) => {

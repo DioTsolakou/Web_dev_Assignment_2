@@ -1,6 +1,5 @@
 const express = require('express');
 const bookDAO = require('./data/bookDAO');
-const favList = require('./data/favoritesList');
 const router = express.Router();
 const url = 'https://reststop.randomhouse.com/resources/works/'
 
@@ -23,11 +22,11 @@ router.post('/', async = (req, res) => {
             }
         })
         .then((res) => res.json())
-        .then(data => {
+        .then(async data => {
             let work = data.work;
-            let book = new bookDAO(`${work.titleweb}`, `${work.workid}`, `${work.author}`, `${work.onsaledate}`);
+            //let book = new bookDAO(`${work.titleweb}`, `${work.workid}`, `${work.author}`, `${work.onsaledate}`);
 
-            let db = favList.readFavorites();
+            let record = new bookDAO();
             let bookExists = false;
             for (let i in db)
             {
@@ -35,13 +34,14 @@ router.post('/', async = (req, res) => {
                 if (current.id == book.id)
                 {
                     bookExists = true;
+                    res.send(-1);
                 }
             }
 
             if (!bookExists)
             {
                 favList.add(book);
-                favList.writeToFile();
+                await favList.writeToFile();
             }
         });
     }
