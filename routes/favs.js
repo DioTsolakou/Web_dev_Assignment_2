@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bookDAO = require('./data/bookDAO');
+const bookDB = require('./data/bookDB');
 
 /* GET users listing. */
 router.get('/favs', (req, res, next) => {

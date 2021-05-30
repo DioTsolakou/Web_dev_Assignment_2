@@ -1,5 +1,5 @@
 const express = require('express');
-const bookDAO = require('./data/bookDAO');
+const bookDB = require('./data/bookDB');
 const router = express.Router();
 const url = 'https://reststop.randomhouse.com/resources/works/'
 
@@ -8,41 +8,25 @@ router.get('/', (req, res) => {
     res.render('index', {title: 'Search a book', script: 'helpers'})
 });
 
-router.post('/', async = (req, res) => {
-    let workid = req.id;
-    let action = req.action;
+router.post('/', async (req, res) => {
+    let workTitle = req.body.title;
+    let workID = req.body.id;
+    //console.log(req.body);
+    let workAuthor = req.body.author;
+    let workDate = req.body.releaseDate;
+    let action = req.body.action;
 
     if (action == 'add')
     {
-        fetch(url + workid, {
-            method: 'GET',
-            headers:
-            {
-                'Accept': 'application/json'
-            }
-        })
-        .then((res) => res.json())
-        .then(async data => {
-            let work = data.work;
-            //let book = new bookDAO(`${work.titleweb}`, `${work.workid}`, `${work.author}`, `${work.onsaledate}`);
-
-            let record = new bookDAO();
-            let bookExists = false;
-            for (let i in db)
-            {
-                let current = db[i];
-                if (current.id == book.id)
-                {
-                    bookExists = true;
-                    res.send(-1);
-                }
-            }
-
-            if (!bookExists)
-            {
-                favList.add(book);
-                await favList.writeToFile();
-            }
+        let bookToAdd = new bookDB({
+            title: workTitle,
+            id: workID,
+            author: workAuthor,
+            releaseDate: workDate
+        });
+        await bookToAdd.save(err => {
+            if (err) res.send({errValue: "-1"});
+            else res.send({errValue: "0"});
         });
     }
     if (action == 'delete')

@@ -3,6 +3,8 @@ let searchBtn = document.getElementById("searchBtn");
 
 searchBtn.addEventListener('click', getResults);
 
+let tmpResultList = new Map();
+
 function getResults()
 {
     let query = document.getElementById("searchBar").value;
@@ -20,7 +22,7 @@ function getResults()
 function editFav(workid)
 {
     // check with fetch if it already exists and call the appropriate function
-
+    
 
 }
 
@@ -36,31 +38,40 @@ function editFav(workid)
 function addFav(workid)
 {
     let book_container_id = "book_container_" + workid;
-    let favIcon = document.getElementById(book_container_id).querySelector("#fav_icon_img");
-    favIcon.src = "images/full_star.png";
 
-    // needs post to routes/data
+    //console.log(tmpResultList.get(workid));
+
+    let workTitle = tmpResultList.get(workid).titleweb;
+    let workAuthor = tmpResultList.get(workid).authorweb;
+    let workDate = tmpResultList.get(workid).onsaledate;
+
+    let favIcon = document.getElementById(book_container_id).querySelector("#fav_icon_img");
+
     fetch('/', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
         },
-        body: JSON.stringify({action: 'add', id: workid})
+        body: JSON.stringify({action: 'add', title: workTitle, id: workid, author: workAuthor, releaseDate: workDate})
     })
-    .then((res) => res.json)
+    .then((res) => res.json())
     .then(data => {
-        if (data == -1)
+        console.log(data.errValue);
+        if (data.errValue == "-1")
         {
             window.alert("You have already added this book to your favorites.");
         }
+        favIcon.src = "images/full_star.png";
     });
 }
-
 
 const handleData = (data) =>
 {
     let div_books = document.getElementById("books_found");
     console.log(data);
+    
+    for (let i of data.work) tmpResultList.set(i.workid, i);
+
     div_books.style.display = "inline-block";
     let results = {};
     results.works = Handlebars.compile(
