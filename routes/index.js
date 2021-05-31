@@ -31,7 +31,10 @@ router.post('/', async (req, res) => {
     }
     if (action == 'delete')
     {
-
+        await bookDB.deleteOne({id: workID}, err => {
+            if (err) res.send({errValue: "-1"});
+            else res.send({errValue: "0"});
+        })
     }
 });
 

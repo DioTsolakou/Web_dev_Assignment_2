@@ -19,21 +19,38 @@ function getResults()
     .catch(handleError);
 }
 
-function editFav(workid)
+function deleteFav(workid)
 {
-    // check with fetch if it already exists and call the appropriate function
-    
+    if (!window.confirm("Are you sure you want to delete this book from your favorites?"))
+    {
+        return;
+    }
 
-}
-
-/* function changeFavIcon(workid)
-{
-    // update favorite icon on load according to the database
     let book_container_id = "book_container_" + workid;
     let favIcon = document.getElementById(book_container_id).querySelector("#fav_icon_img");
+    let binIcon = document.getElementById(book_container_id).querySelector("#bin_icon_img");
 
-    fetch
-} */
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({action: 'delete', id: workid})
+    })
+    .then((res) => res.json())
+    .then(data => {
+        console.log(data.errValue);
+        if (data.errValue == "-1")
+        {
+            window.alert("There was a problem deleting this book.")
+        }
+        else
+        {
+            favIcon.src = "images/empty_star.webp";
+            binIcon.style.display = "none";
+        }
+    })
+}
 
 function addFav(workid)
 {
@@ -46,6 +63,7 @@ function addFav(workid)
     let workDate = tmpResultList.get(workid).onsaledate;
 
     let favIcon = document.getElementById(book_container_id).querySelector("#fav_icon_img");
+    let binIcon = document.getElementById(book_container_id).querySelector("#bin_icon_img");
 
     fetch('/', {
         method: 'POST',
@@ -62,6 +80,7 @@ function addFav(workid)
             window.alert("You have already added this book to your favorites.");
         }
         favIcon.src = "images/full_star.png";
+        binIcon.style.display = "inline-block";
     });
 }
 
@@ -90,8 +109,9 @@ const handleData = (data) =>
                     <p>Release date :<br>{{onsaledate}}</p>
                 </span>
                 <img id="fav_icon_img" src="/images/empty_star.webp" width="48" height="48" onclick="addFav('{{workid}}')">
+                <img id="bin_icon_img" style="display:none;" src="/images/bin_icon.png" width="48" height="48" onclick="deleteFav('{{workid}}')">
             </span>
-        {{/each}}`);
+        {{/each}}`); 
     let content = results.works(data);
     div_books.innerHTML = content;
 };
