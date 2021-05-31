@@ -72,3 +72,7 @@ button {
 #books_faved p {
     font-size: 1.25rem;
 }
+
+#edit_icon_img {
+    margin: 0.25rem;
+}

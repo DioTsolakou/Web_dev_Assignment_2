@@ -21,7 +21,7 @@ function getResults()
 
 function deleteFav(workid)
 {
-    if (!window.confirm("Are you sure you want to delete this book from your favorites?"))
+    if (!window.confirm("Are you sure you want to delete this book from your favourites?"))
     {
         return;
     }
@@ -77,7 +77,7 @@ function addFav(workid)
         console.log(data.errValue);
         if (data.errValue == "-1")
         {
-            window.alert("You have already added this book to your favorites.");
+            window.alert("You have already added this book to your favourites.");
         }
         favIcon.src = "images/full_star.png";
         binIcon.style.display = "inline-block";
@@ -134,12 +134,3 @@ const handleError = (error) =>
 
     throw new Error(errorMsg);
 };
-
-function checkExists(workid)
-{
-    for (let i in favList.favoritesSet)
-    {
-        if (favList.favoritesSet[i].has == workid) return true;
-    }
-    return false;
-}

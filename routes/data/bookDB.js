@@ -23,7 +23,8 @@ const bookSchema = new schema({
     releaseDate: {
         type: Date,
         required: true
-    }
+    },
+    review: String
 });
 
 const BookModel = mongo.model('FavBook', bookSchema)
