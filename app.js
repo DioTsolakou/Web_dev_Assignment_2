@@ -3,7 +3,6 @@ const hbs = require('express-handlebars');
 const path = require('path');
 const port = 8080;
 const indexRouter = require('./routes/index');
-const resultsRouter = require('./routes/results')
 const favsRouter = require('./routes/favs');
 const editRouter = require('./routes/edit');
 const app = express();
@@ -20,9 +19,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/favicon.ico', express.static('images/favicon.ico'));
 
 app.use('/', indexRouter);
-app.use('/', resultsRouter);
 app.use('/', favsRouter);
-app.use('/edit', editRouter);
+app.use('/', editRouter);
 
 app.listen(port, () => console.log(`Listening to port : ${port}`));
 

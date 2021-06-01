@@ -1,0 +1,18 @@
+<div id="bookToEdit">
+    {{#if work}}
+        <h2>You are editing : {{work.title}}</h2>
+        <form id="editForm">
+            <div id="grid">
+                <label id="lab_t" for="title">Title :</label>
+                <input type="text" id="title" value="{{work.title}}" size="50"><br>
+                <label id="lab_id" for="id">Book ID :</label>
+                <input type="text" id="id" value="{{work.id}}" readonly size="50"><br>
+                <label id="lab_au" for="author">Author :</label>
+                <input type="text" id="author" value="{{work.author}}" size="50"><br>
+                <label id="lab_r" for="review">Review :</label><br>
+                <textarea id="review" cols="70" rows="15" wrap="hard" maxlength="3000">{{work.review}}</textarea><br>
+            </div>
+            <button type="button" onclick="editBook('{{work.id}}')">Save</button> 
+        </form>
+    {{/if}}
+</div>

@@ -1,6 +1,6 @@
 function editFav(workid)
 {
-    window.location.href = `edit/${workid}`;
+    window.location.href = `/edit/${workid}`;
 }
 
 function deleteFav(workid)
@@ -32,7 +32,16 @@ function deleteFav(workid)
             document.getElementById(book_container_id).style.display = "none";
             //document.getElementById("favs_amount").innerHTML = Handlebars.compile("You have {{favs.length}}");
         }
-    })
+    });
+}
+
+function keyUpDelay()
+{
+    let timer = 0;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+        filterFav();
+    }, 500);
 }
 
 function filterFav()
@@ -51,5 +60,35 @@ function filterFav()
             innerDiv[i].style.display = "";
         }
         else innerDiv[i].style.display = "none";
+    }
+}
+
+function showReview(workid)
+{
+    let book_container_id = "book_container_" + workid;
+    let reviewContent = document.getElementById(book_container_id).querySelector("#review_p").innerHTML;
+
+    if (reviewContent == null || reviewContent == "")
+    {
+        window.alert("You haven't written a review for this book.");
+        return;
+    }
+
+    let modal = document.getElementById(book_container_id).querySelector("#modal");
+    let showBtn = document.getElementById(book_container_id).querySelector("#showBtn");
+    let closeModalBtn = document.getElementById(book_container_id).querySelector("#close");
+
+    showBtn.onclick = () => {
+        modal.style.display = "block";
+    }
+
+    closeModalBtn.onclick = () => {
+        modal.style.display = "none";
+    }
+
+    window.onclick = (event) => {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
     }
 }

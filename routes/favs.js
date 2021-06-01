@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bookDB = require('./data/bookDB');
 
-/* GET users listing. */
-router.get('/favs', (req, res, next) => {
+router.get('/favs', (req, res) => {
 	bookDB.find({}, (err, favs) => {
 		favs = favs.map((fav) => {
 			return {

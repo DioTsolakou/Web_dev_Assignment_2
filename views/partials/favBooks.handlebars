@@ -20,7 +20,14 @@
                 <p>Release date : {{releaseDate}}</p>
             </div>
             <div id="review">
-                <p>Review:<br>{{review}}</p>
+                <p>Review : <button type="button" id="showBtn" onclick="showReview('{{id}}')">Show</button></p>
+                <div id="modal">
+                    <div id="modal_content">
+                        <span id="close">&times;</span>
+                        <p>You wrote :</p>
+                        <p id="review_p">{{review}}</p>
+                    </div>
+                </div>
             </div>
             <img id="edit_icon_img" src="images/edit_icon.png" width="32" height="32" onclick="editFav('{{id}}')">
             <img id="bin_icon_img" src="/images/bin_icon.png" width="48" height="48" onclick="deleteFav('{{id}}')">

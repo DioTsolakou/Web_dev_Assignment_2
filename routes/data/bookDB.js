@@ -8,8 +8,7 @@ mongo.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
 const schema = mongo.Schema;
 const bookSchema = new schema({
     title: {
-        type: String,
-        required: true
+        type: String
     },
     id: {
         type: Number,
@@ -17,12 +16,10 @@ const bookSchema = new schema({
         required: true
     },
     author: {
-        type: String,
-        required: true
+        type: String
     },
     releaseDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     review: String
 });
