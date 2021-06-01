@@ -13,15 +13,6 @@ router.get('/favs', (req, res) => {
 				review: fav.review
 			}
 		});
-
-
-		/* favs.forEach((fav) => {
-			title: fav.title;
-			id: fav.id;
-			author: fav.author;
-			releaseDate: fav.releaseDate;
-			review: fav.review;
-		}) */
 	
 		//console.log(favs);
 		res.render('favs', {title: 'Favourite Books', favs, script: 'favsHelpers'})

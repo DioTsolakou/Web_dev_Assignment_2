@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    //console.log(req.body);
     let workTitle = req.body.title;
     let workID = req.body.id;
-    //console.log(req.body);
     let workAuthor = req.body.author;
     let workDate = req.body.releaseDate;
     let action = req.body.action;
