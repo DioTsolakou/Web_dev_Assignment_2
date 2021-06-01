@@ -76,3 +76,13 @@ button {
 #edit_icon_img {
     margin: 0.25rem;
 }
+
+#filter > label {
+    font-size: 1.3rem;
+}
+
+#filterBar {
+    border-radius: 0.5rem;
+    margin: 1rem;
+    height: 1.2rem;
+}

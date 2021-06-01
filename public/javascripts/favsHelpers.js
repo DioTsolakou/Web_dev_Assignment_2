@@ -1,5 +1,3 @@
-let filterBtn = document.getElementById("filterBtn");
-
 function editFav(workid)
 {
     window.location.href = `edit/${workid}`;
@@ -32,7 +30,26 @@ function deleteFav(workid)
         else
         {
             document.getElementById(book_container_id).style.display = "none";
-            //document.getElementById("favs_amount").innerHTML = "";
+            //document.getElementById("favs_amount").innerHTML = Handlebars.compile("You have {{favs.length}}");
         }
     })
+}
+
+function filterFav()
+{
+    let filterInput = (document.getElementById("filterBar").value).toUpperCase();
+    let topDiv = document.getElementById("books_faved");
+    let innerDiv = topDiv.getElementsByClassName("book_container");
+    
+    for (i = 0; i < innerDiv.length; i++)
+    {
+        let title = innerDiv[i].querySelector("#title p").innerHTML;
+        let author = innerDiv[i].querySelector("#author p").innerHTML;
+
+        if ((title.toUpperCase().indexOf(filterInput) > -1) || author.toUpperCase().indexOf(filterInput) > -1)
+        {
+            innerDiv[i].style.display = "";
+        }
+        else innerDiv[i].style.display = "none";
+    }
 }
