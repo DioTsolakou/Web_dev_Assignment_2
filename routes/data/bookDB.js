@@ -1,5 +1,5 @@
 const mongo = require('mongoose');
-const dbURL = "mongodb+srv://dio:webdev2021ex2@web-dev-2021.zyknb.mongodb.net/BookSearcher?retryWrites=true&w=majority";
+const dbURL = "mongodb+srv://username:password@web-dev-2021.zyknb.mongodb.net/BookSearcher?retryWrites=true&w=majority";
 
 mongo.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((res) => console.log("Connected!"))
